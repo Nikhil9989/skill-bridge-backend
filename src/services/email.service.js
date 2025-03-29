@@ -117,46 +117,10 @@ const sendWelcomeEmail = async (to, name) => {
   await sendEmail(to, subject, text, html);
 };
 
-/**
- * Send mentor session reminder email
- * @param {string} to
- * @param {object} session
- * @returns {Promise}
- */
-const sendMentorSessionReminder = async (to, session) => {
-  const subject = 'Upcoming Mentor Session Reminder';
-  const sessionDate = new Date(session.scheduledAt).toLocaleDateString();
-  const sessionTime = new Date(session.scheduledAt).toLocaleTimeString();
-  const text = `Dear Student,\nThis is a reminder for your upcoming mentor session:\nTitle: ${session.title}\nMentor: ${session.mentorName}\nDate: ${sessionDate}\nTime: ${sessionTime}\nMode: ${session.mode}\n${session.meetingLink ? `Meeting Link: ${session.meetingLink}` : `Location: ${session.locationDetails}`}\n\nPlease be on time and come prepared with your questions.\nBest regards,\nThe SKILL BRIDGE Team`;
-  
-  const html = `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-    <div style="background-color: #4a6cf7; padding: 20px; text-align: center;">
-      <h1 style="color: white; margin: 0;">SKILL BRIDGE</h1>
-    </div>
-    <div style="padding: 20px; border: 1px solid #ddd; border-top: none;">
-      <h2>Upcoming Mentor Session Reminder</h2>
-      <p>Dear Student,</p>
-      <p>This is a reminder for your upcoming mentor session:</p>
-      <div style="background-color: #f5f5f5; padding: 15px; border-radius: 4px; margin: 20px 0;">
-        <p><strong>Title:</strong> ${session.title}</p>
-        <p><strong>Mentor:</strong> ${session.mentorName}</p>
-        <p><strong>Date:</strong> ${sessionDate}</p>
-        <p><strong>Time:</strong> ${sessionTime}</p>
-        <p><strong>Mode:</strong> ${session.mode}</p>
-        ${session.meetingLink ? `<p><strong>Meeting Link:</strong> <a href="${session.meetingLink}">${session.meetingLink}</a></p>` : `<p><strong>Location:</strong> ${session.locationDetails}</p>`}
-      </div>
-      <p>Please be on time and come prepared with your questions.</p>
-      <p>Best regards,<br>The SKILL BRIDGE Team</p>
-    </div>
-  </div>`;
-  await sendEmail(to, subject, text, html);
-};
-
 module.exports = {
   transport,
   sendEmail,
   sendResetPasswordEmail,
   sendVerificationEmail,
   sendWelcomeEmail,
-  sendMentorSessionReminder,
 };
